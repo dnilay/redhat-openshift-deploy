@@ -1,26 +1,29 @@
 package com.example.demo.service;
 
+import com.example.demo.dao.UserRepository;
 import com.example.demo.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class UserServiceImpl implements UserService{
 
-    private UserService userService;
+    private UserRepository userRepository;
+
 
     @Autowired
-    public UserServiceImpl(UserService userService) {
-        this.userService = userService;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserEntity createUser(UserEntity userEntity) {
-        return userService.createUser(userEntity);
+        return userRepository.save(userEntity);
     }
 
     @Override
     public List<UserEntity> displayCustomer() {
-        return userService.displayCustomer();
+        return userRepository.findAll();
     }
 }
